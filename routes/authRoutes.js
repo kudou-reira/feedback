@@ -11,7 +11,7 @@ module.exports = (app) => {
 		}) 
 	);
 
-	// now at callback function, ask Google from code
+	// now at callback function, ask Google for code
 	//'code' gets sent in url, google strategy will see the code and try to handle
 	// callback sends back an access token, this means it's successful
 	app.get('/auth/google/callback', passport.authenticate('google'));
