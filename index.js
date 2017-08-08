@@ -32,6 +32,7 @@ app.use(passport.session());
 //returns function from authroutes
 //similar to createStore in redux
 require('./routes/authRoutes')(app);
+require('./routes/billingRoutes')(app);
 
 console.log('Server running');
 
