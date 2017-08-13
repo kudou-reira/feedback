@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const bodyParser = require('body-parser');
 //nothing being returned from passport.js, so just require it
 require('./models/user');
 require('./services/passport');
@@ -12,6 +13,8 @@ require('./services/passport');
 mongoose.connect(keys.mongoURI);
 
 const app = express();
+
+app.use(bodyParser.json());
 
 //use cookieSession middleware
 app.use(
@@ -33,6 +36,17 @@ app.use(passport.session());
 //similar to createStore in redux
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+
+// environment variable set by heroku
+if(process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
+
+	// if route not recognized, index.html file will be sent
+	const path = require('path');
+	app.get('*', (req, res) => {
+		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+	});
+}
 
 console.log('Server running');
 

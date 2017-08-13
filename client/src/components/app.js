@@ -11,6 +11,7 @@ const SurveyNew = () => <h2>SurveyNew</h2>;
 
 class App extends Component {
 	componentDidMount(){
+		//fetchUser() calls the api/current_user and intializes the app with data
 		this.props.fetchUser();
 	}
 

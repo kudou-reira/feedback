@@ -30,6 +30,7 @@ module.exports = (app) => {
 		res.redirect('/');
 	});
 
+	// if no user logged in, sends back null
 	app.get('/api/current_user', (req, res) => {
 		res.send(req.user);
 	});
